@@ -1,19 +1,16 @@
 // ignore_for_file: avoid_print, empty_catches
 
 import 'package:flutter/material.dart';
-import 'package:tencent_im_base/tencent_im_base.dart';
+import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
-
 import 'package:tencent_cloud_chat_uikit/ui/utils/time_ago.dart';
-
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitConversation/tim_uikit_conversation_draft_text.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitConversation/tim_uikit_conversation_last_msg.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/unread_message.dart';
-import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
+import 'package:tencent_im_base/tencent_im_base.dart';
 
-typedef LastMessageBuilder = Widget? Function(
-    V2TimMessage? lastMsg, List<V2TimGroupAtInfo?> groupAtInfoList);
+typedef LastMessageBuilder = Widget? Function(V2TimMessage? lastMsg, List<V2TimGroupAtInfo?> groupAtInfoList);
 
 class TIMUIKitConversationItem extends TIMUIKitStatelessWidget {
   final String faceUrl;
@@ -58,8 +55,7 @@ class TIMUIKitConversationItem extends TIMUIKitStatelessWidget {
         draftText: draftText ?? "",
       );
     } else if (lastMsg != null) {
-      if (lastMessageBuilder != null &&
-          lastMessageBuilder!(lastMsg, groupAtInfoList) != null) {
+      if (lastMessageBuilder != null && lastMessageBuilder!(lastMsg, groupAtInfoList) != null) {
         return lastMessageBuilder!(lastMsg, groupAtInfoList)!;
       }
       return TIMUIKitLastMsg(
@@ -75,8 +71,7 @@ class TIMUIKitConversationItem extends TIMUIKitStatelessWidget {
   }
 
   bool isHaveSecondLine() {
-    return (isShowDraft && draftText != null && draftText != "") ||
-        (lastMsg != null);
+    return (isShowDraft && draftText != null && draftText != "") || (lastMsg != null);
   }
 
   Widget _getTimeStringForChatWidget(BuildContext context, TUITheme theme) {
@@ -105,13 +100,10 @@ class TIMUIKitConversationItem extends TIMUIKitStatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 6, bottom: 6, left: 16, right: 16),
       decoration: BoxDecoration(
-        color: isPined
-            ? theme.conversationItemPinedBgColor
-            : theme.conversationItemBgColor,
+        color: isPined ? theme.conversationItemPinedBgColor : theme.conversationItemBgColor,
         border: Border(
           bottom: BorderSide(
-            color: theme.conversationItemBorderColor ??
-                CommonColor.weakDividerColor,
+            color: theme.conversationItemBorderColor ?? CommonColor.weakDividerColor,
             width: 1,
           ),
         ),
@@ -128,11 +120,7 @@ class TIMUIKitConversationItem extends TIMUIKitStatelessWidget {
                 fit: StackFit.expand,
                 clipBehavior: Clip.none,
                 children: [
-                  Avatar(
-                      onlineStatus: onlineStatus,
-                      faceUrl: faceUrl,
-                      showName: nickName,
-                      type: convType),
+                  Avatar(onlineStatus: onlineStatus, faceUrl: faceUrl, showName: nickName, type: convType),
                   if (unreadCount != 0)
                     Positioned(
                       top: isDisturb ? -2.5 : -4.5,
@@ -169,7 +157,8 @@ class TIMUIKitConversationItem extends TIMUIKitStatelessWidget {
                       style: TextStyle(
                         height: 1,
                         color: theme.conversationItemTitleTextColor,
-                        fontSize: 18,
+                        //修改字体大小
+                        fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
                     )),

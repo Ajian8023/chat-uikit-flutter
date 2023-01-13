@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
-
+import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 
 class TIMUIKitDraftText extends TIMUIKitStatelessWidget {
@@ -24,20 +23,14 @@ class TIMUIKitDraftText extends TIMUIKitStatelessWidget {
   Widget tuiBuild(BuildContext context, TUIKitBuildValue value) {
     final TUITheme theme = value.theme;
     return Row(children: [
-      Text(_getDraftShowText(),
-          style: TextStyle(
-            color: theme.conversationItemDraftTextColor,
-          )),
+      Text(_getDraftShowText(), style: TextStyle(color: theme.conversationItemDraftTextColor, fontSize: 11)),
       Expanded(
           child: Text(
         draftText,
         softWrap: true,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
-        style: TextStyle(
-            height: 1.5,
-            color: theme.conversationItemLastMessageTextColor,
-            fontSize: 14),
+        style: TextStyle(height: 1.5, color: theme.conversationItemLastMessageTextColor, fontSize: 11),
       )),
     ]);
   }
