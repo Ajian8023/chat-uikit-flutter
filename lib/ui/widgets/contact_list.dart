@@ -1,23 +1,20 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
 import 'package:lpinyin/lpinyin.dart';
-import 'package:tencent_im_base/tencent_im_base.dart';
+import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_friendship_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-
-
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/az_list_view.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/radio_button.dart';
-import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
+import 'package:tencent_im_base/tencent_im_base.dart';
 
 class ContactList extends StatefulWidget {
   final List<V2TimFriendInfo> contactList;
   final bool isCanSelectMemberItem;
   final bool isCanSlidableDelete;
-  final Function(List<V2TimFriendInfo> selectedMember)?
-      onSelectedMemberItemChange;
+  final Function(List<V2TimFriendInfo> selectedMember)? onSelectedMemberItemChange;
   final Function()? handleSlidableDelte;
 
   /// tap联系人列表项回调
@@ -61,8 +58,7 @@ class ContactList extends StatefulWidget {
 
 class _ContactListState extends TIMUIKitState<ContactList> {
   List<V2TimFriendInfo> selectedMember = [];
-  final TUIFriendShipViewModel friendShipViewModel =
-      serviceLocator<TUIFriendShipViewModel>();
+  final TUIFriendShipViewModel friendShipViewModel = serviceLocator<TUIFriendShipViewModel>();
 
   _getShowName(V2TimFriendInfo item) {
     final friendRemark = item.friendRemark ?? "";
@@ -104,25 +100,18 @@ class _ContactListState extends TIMUIKitState<ContactList> {
     final faceUrl = item.userProfile?.faceUrl ?? "";
 
     final V2TimUserStatus? onlineStatus = widget.isShowOnlineStatus
-        ? friendShipViewModel.userStatusList.firstWhere(
-            (element) => element.userID == item.userID,
-            orElse: () => V2TimUserStatus(statusType: 0))
+        ? friendShipViewModel.userStatusList
+            .firstWhere((element) => element.userID == item.userID, orElse: () => V2TimUserStatus(statusType: 0))
         : null;
 
     bool disabled = false;
     if (widget.groupMemberList != null && widget.groupMemberList!.isNotEmpty) {
-      disabled = ((widget.groupMemberList
-                  ?.indexWhere((element) => element?.userID == item.userID)) ??
-              -1) >
-          -1;
+      disabled = ((widget.groupMemberList?.indexWhere((element) => element?.userID == item.userID)) ?? -1) > -1;
     }
     return Container(
       padding: const EdgeInsets.only(top: 8, left: 16, right: 12),
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  color:
-                      theme.weakDividerColor ?? CommonColor.weakDividerColor))),
+          border: Border(bottom: BorderSide(color: theme.weakDividerColor ?? CommonColor.weakDividerColor))),
       child: Row(
         children: [
           if (widget.isCanSelectMemberItem)
@@ -153,10 +142,7 @@ class _ContactListState extends TIMUIKitState<ContactList> {
             child: SizedBox(
               height: 40,
               width: 40,
-              child: Avatar(
-                  onlineStatus: onlineStatus,
-                  faceUrl: faceUrl,
-                  showName: showName),
+              child: Avatar(onlineStatus: onlineStatus, faceUrl: faceUrl, showName: showName),
             ),
           ),
           Expanded(
@@ -165,7 +151,7 @@ class _ContactListState extends TIMUIKitState<ContactList> {
             padding: const EdgeInsets.only(top: 10, bottom: 20, right: 28),
             child: Text(
               showName,
-              style: const TextStyle(color: Colors.black, fontSize: 18),
+              style: const TextStyle(color: Colors.black, fontSize: 14),
             ),
           )),
         ],
@@ -188,8 +174,7 @@ class _ContactListState extends TIMUIKitState<ContactList> {
         },
         child: Container(
           padding: const EdgeInsets.only(top: 8, left: 16),
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: hexToColor("DBDBDB")))),
+          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: hexToColor("DBDBDB")))),
           child: Row(
             children: [
               Container(
@@ -206,8 +191,7 @@ class _ContactListState extends TIMUIKitState<ContactList> {
                   children: [
                     Text(
                       memberInfo.name,
-                      style:
-                          TextStyle(color: hexToColor("111111"), fontSize: 18),
+                      style: TextStyle(color: hexToColor("111111"), fontSize: 14),
                     ),
                     Expanded(child: Container()),
                     // if (item.id == "newContact")
@@ -234,9 +218,7 @@ class _ContactListState extends TIMUIKitState<ContactList> {
     final showList = _getShowList(widget.contactList);
 
     if (widget.topList != null && widget.topList!.isNotEmpty) {
-      final topList = widget.topList!
-          .map((e) => ISuspensionBeanImpl(memberInfo: e, tagIndex: '@'))
-          .toList();
+      final topList = widget.topList!.map((e) => ISuspensionBeanImpl(memberInfo: e, tagIndex: '@')).toList();
       showList.insertAll(0, topList);
     }
 
@@ -244,10 +226,7 @@ class _ContactListState extends TIMUIKitState<ContactList> {
       return Column(
         children: [
           ...showList.map((e) => generateTopItem(e.memberInfo)).toList(),
-          Expanded(
-              child: widget.emptyBuilder != null
-                  ? widget.emptyBuilder!(context)
-                  : Container())
+          Expanded(child: widget.emptyBuilder != null ? widget.emptyBuilder!(context) : Container())
         ],
       );
     }
