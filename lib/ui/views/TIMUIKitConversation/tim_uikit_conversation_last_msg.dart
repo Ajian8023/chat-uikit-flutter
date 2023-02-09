@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
+
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
+
+import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 
 class TIMUIKitLastMsg extends StatefulWidget {
@@ -12,7 +14,11 @@ class TIMUIKitLastMsg extends StatefulWidget {
   final List<V2TimGroupAtInfo?> groupAtInfoList;
   final BuildContext context;
 
-  const TIMUIKitLastMsg({Key? key, this.lastMsg, required this.groupAtInfoList, required this.context})
+  const TIMUIKitLastMsg(
+      {Key? key,
+      this.lastMsg,
+      required this.groupAtInfoList,
+      required this.context})
       : super(key: key);
 
   @override
@@ -31,7 +37,8 @@ class _TIMUIKitLastMsgState extends TIMUIKitState<TIMUIKitLastMsg> {
   @override
   void didUpdateWidget(covariant TIMUIKitLastMsg oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if ((oldWidget.lastMsg?.msgID != widget.lastMsg?.msgID) || (oldWidget.lastMsg?.id != widget.lastMsg?.id)) {
+    if ((oldWidget.lastMsg?.msgID != widget.lastMsg?.msgID) ||
+        (oldWidget.lastMsg?.id != widget.lastMsg?.id)) {
       _getMsgElem();
     }
   }
@@ -40,23 +47,31 @@ class _TIMUIKitLastMsgState extends TIMUIKitState<TIMUIKitLastMsg> {
     final isRevokedMessage = widget.lastMsg!.status == 6;
     if (isRevokedMessage) {
       final isSelf = widget.lastMsg!.isSelf ?? false;
-      final option1 = isSelf ? TIM_t("您") : widget.lastMsg!.nickName ?? widget.lastMsg?.sender;
-      setState(() {
-        groupTipsAbstractText = TIM_t_para("{{option1}}撤回了一条消息", "$option1撤回了一条消息")(option1: option1);
-      });
+      final option1 = isSelf
+          ? TIM_t("您")
+          : widget.lastMsg!.nickName ?? widget.lastMsg?.sender;
+      if(mounted){
+        setState(() {
+          groupTipsAbstractText = TIM_t_para(
+              "{{option1}}撤回了一条消息", "$option1撤回了一条消息")(option1: option1);
+        });
+      }
     } else {
       final newText = await _getLastMsgShowText(widget.lastMsg, widget.context);
-      setState(() {
-        groupTipsAbstractText = newText;
-      });
+      if(mounted){
+        setState(() {
+          groupTipsAbstractText = newText;
+        });
+      }
     }
   }
 
-  Future<String> _getLastMsgShowText(V2TimMessage? message, BuildContext context) async {
+  Future<String> _getLastMsgShowText(
+      V2TimMessage? message, BuildContext context) async {
     final msgType = message!.elemType;
     switch (msgType) {
       case MessageElemType.V2TIM_ELEM_TYPE_CUSTOM:
-        return TIM_t("[新消息]");
+        return TIM_t("[自定义]");
       case MessageElemType.V2TIM_ELEM_TYPE_SOUND:
         return TIM_t("[语音]");
       case MessageElemType.V2TIM_ELEM_TYPE_TEXT:
@@ -65,9 +80,11 @@ class _TIMUIKitLastMsgState extends TIMUIKitState<TIMUIKitLastMsg> {
         return TIM_t("[表情]");
       case MessageElemType.V2TIM_ELEM_TYPE_FILE:
         final option1 = widget.lastMsg!.fileElem!.fileName;
-        return TIM_t_para("[文件] {{option1}}", "[文件] $option1")(option1: option1);
+        return TIM_t_para("[文件] {{option1}}", "[文件] $option1")(
+            option1: option1);
       case MessageElemType.V2TIM_ELEM_TYPE_GROUP_TIPS:
-        return await MessageUtils.groupTipsMessageAbstract(widget.lastMsg!.groupTipsElem!, []);
+        return await MessageUtils.groupTipsMessageAbstract(
+            widget.lastMsg!.groupTipsElem!, []);
       case MessageElemType.V2TIM_ELEM_TYPE_IMAGE:
         return TIM_t("[图片]");
       case MessageElemType.V2TIM_ELEM_TYPE_VIDEO:
@@ -116,16 +133,15 @@ class _TIMUIKitLastMsgState extends TIMUIKitState<TIMUIKitLastMsg> {
           child: icon,
         ),
       if (widget.groupAtInfoList.isNotEmpty)
-        //修改字体大小
-        Text(_getAtMessage(), style: TextStyle(color: theme.cautionColor, fontSize: 11)),
+        Text(_getAtMessage(),
+            style: TextStyle(color: theme.cautionColor, fontSize: 14)),
       Expanded(
           child: Text(
         groupTipsAbstractText,
         softWrap: true,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        //修改字体大小
-        style: TextStyle(height: 1, color: theme.weakTextColor, fontSize: 11),
+        style: TextStyle(height: 1, color: theme.weakTextColor, fontSize: 14),
       )),
     ]);
   }

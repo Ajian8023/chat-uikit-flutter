@@ -1,8 +1,24 @@
+
+## 1.6.0
+
+* Add: `scrollToConversation` on `TIMUIKitConversationController`. You can now easily navigate to a specific conversation in the conversation list and move to the next unread conversation by double-clicking the tab bar, [refers to our sample app](https://github.com/TencentCloud/chat-demo-flutter/blob/main/lib/src/conversation.dart).
+* Optimize: The performance of the history message list while scrolling over a large distance.
+
+## 1.5.0+1
+
+* Fix: Video message oversize.
+
+## 1.5.0
+
+* Add: New configuration `defaultAvatarAssetPath` on global `TIMUIKitConfig`, aiming to define the default avatar.
+* Add: Supports Flutter 3.7.0.
+* Fix: `chatBgColor` configuration.
+
 ## 1.4.0
 
 * Add: Text translation. Long press the text messages and choose `Translate`. This function can be turn off by `showTranslation` from `ToolTipsConfig`.
 * Optimize: The long press pop-up location.
-* Optimize: keyboard pop-up event.
+* Optimize: Keyboard pop-up event.
 
 ## 1.3.2
 

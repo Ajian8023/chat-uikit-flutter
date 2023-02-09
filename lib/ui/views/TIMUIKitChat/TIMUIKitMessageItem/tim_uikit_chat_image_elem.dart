@@ -13,7 +13,6 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -230,15 +229,6 @@ class _TIMUIKitImageElem extends TIMUIKitState<TIMUIKitImageElem> {
     return;
   }
 
-  getImgWidthAndHeight(
-      BoxConstraints constraints, double height, double width) {
-    // 消息列表展示缩略图的大小
-    double hwrate = height / width;
-    double curWidth = min(width, constraints.maxWidth * 0.5);
-    double curHeight = curWidth * hwrate;
-    return {height: curHeight, width: curWidth};
-  }
-
   Future<void> _saveImg(TUITheme theme) async {
     String? path = widget.message.imageElem!.path;
     if (path != null && PlatformUtils().isWeb
@@ -429,12 +419,6 @@ class _TIMUIKitImageElem extends TIMUIKitState<TIMUIKitImageElem> {
             ? AlignmentDirectional.topEnd
             : AlignmentDirectional.topStart,
         children: [
-          // AspectRatio(
-          //   aspectRatio: networkImagePositionRadio ?? positionRadio,
-          //   child: Container(
-          //     decoration: const BoxDecoration(color: Colors.white),
-          //   ),
-          // ),
           getImage(
               GestureDetector(
                 onTap: () {
