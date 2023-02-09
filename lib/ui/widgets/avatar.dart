@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tencent_cloud_chat_uikit/ui/widgets/image_screen.dart';
-import 'package:tencent_im_base/tencent_im_base.dart';
+import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/core/core_services_implements.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
+import 'package:tencent_cloud_chat_uikit/ui/widgets/image_screen.dart';
+import 'package:tencent_im_base/tencent_im_base.dart';
 
 class Avatar extends TIMUIKitStatelessWidget {
   final String faceUrl;
@@ -31,18 +31,27 @@ class Avatar extends TIMUIKitStatelessWidget {
   Widget getImageWidget(BuildContext context, TUITheme theme) {
     Widget defaultAvatar() {
       if (type == 1) {
-        return Image.asset('images/default_c2c_head.png',
-            package: 'tencent_cloud_chat_uikit');
+        return Image.asset(
+          'images/default_c2c_head.png',
+          package: 'tencent_cloud_chat_uikit',
+          fit: BoxFit.cover,
+        );
       } else {
-        return Image.asset('images/default_group_head.png',
-            package: 'tencent_cloud_chat_uikit');
+        return Image.asset(
+          'images/default_group_head.png',
+          package: 'tencent_cloud_chat_uikit',
+          fit: BoxFit.cover,
+        );
       }
     }
 
     // final emptyAvatarBuilder = coreService.emptyAvatarBuilder;
     if (faceUrl != "") {
       if (isFromLocalAsset) {
-        return Image.asset(faceUrl);
+        return Image.asset(
+          faceUrl,
+          fit: BoxFit.cover,
+        );
       }
       return CachedNetworkImage(
         imageUrl: faceUrl,
@@ -50,6 +59,7 @@ class Avatar extends TIMUIKitStatelessWidget {
         errorWidget: (BuildContext context, String c, dynamic s) {
           return defaultAvatar();
         },
+        fit: BoxFit.cover,
       );
     } else {
       return defaultAvatar();
@@ -59,13 +69,13 @@ class Avatar extends TIMUIKitStatelessWidget {
   ImageProvider getImageProvider() {
     ImageProvider defaultAvatar() {
       if (type == 1) {
-        return Image.asset('images/default_c2c_head.png',
-                package: 'tencent_cloud_chat_uikit')
-            .image;
+        return Image.asset(
+          'images/default_c2c_head.png',
+          package: 'tencent_cloud_chat_uikit',
+          fit: BoxFit.cover,
+        ).image;
       } else {
-        return Image.asset('images/default_group_head.png',
-                package: 'tencent_cloud_chat_uikit')
-            .image;
+        return Image.asset('images/default_group_head.png', package: 'tencent_cloud_chat_uikit').image;
       }
     }
 
@@ -95,8 +105,7 @@ class Avatar extends TIMUIKitStatelessWidget {
               Navigator.of(context).push(
                 PageRouteBuilder(
                   opaque: false, // set to false
-                  pageBuilder: (_, __, ___) => ImageScreen(
-                      imageProvider: getImageProvider(), heroTag: faceUrl),
+                  pageBuilder: (_, __, ___) => ImageScreen(imageProvider: getImageProvider(), heroTag: faceUrl),
                 ),
               );
             },

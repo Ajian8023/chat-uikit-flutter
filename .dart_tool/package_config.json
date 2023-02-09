@@ -915,7 +915,7 @@
     },
     {
       "name": "tencent_cloud_chat_sdk",
-      "rootUri": "file:///Users/tj/flutter/.pub-cache/hosted/pub.dartlang.org/tencent_cloud_chat_sdk-5.0.7",
+      "rootUri": "file:///Users/tj/flutter/.pub-cache/hosted/pub.dartlang.org/tencent_cloud_chat_sdk-5.0.8",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -939,13 +939,13 @@
     },
     {
       "name": "tencent_im_base",
-      "rootUri": "file:///Users/tj/flutter/.pub-cache/hosted/pub.dartlang.org/tencent_im_base-1.0.17",
+      "rootUri": "file:///Users/tj/flutter/.pub-cache/hosted/pub.dartlang.org/tencent_im_base-1.0.19",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "tencent_im_sdk_plugin_platform_interface",
-      "rootUri": "file:///Users/tj/flutter/.pub-cache/hosted/pub.dartlang.org/tencent_im_sdk_plugin_platform_interface-0.3.10",
+      "rootUri": "file:///Users/tj/flutter/.pub-cache/hosted/pub.dartlang.org/tencent_im_sdk_plugin_platform_interface-0.3.11",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -1196,7 +1196,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2023-01-13T06:41:06.745698Z",
+  "generated": "2023-01-14T09:46:41.826162Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
