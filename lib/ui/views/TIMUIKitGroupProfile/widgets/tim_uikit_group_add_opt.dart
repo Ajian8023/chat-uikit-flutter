@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/separate_models/tui_group_profile_model.dart';
-
-
-
-import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
+import 'package:tencent_im_base/tencent_im_base.dart';
 
 class GroupProfileAddOpt extends TIMUIKitStatelessWidget {
   GroupProfileAddOpt({Key? key}) : super(key: key);
@@ -50,10 +47,7 @@ class GroupProfileAddOpt extends TIMUIKitStatelessWidget {
       padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border(
-              bottom: BorderSide(
-                  color:
-                      theme.weakDividerColor ?? CommonColor.weakDividerColor))),
+          border: Border(bottom: BorderSide(color: theme.weakDividerColor ?? CommonColor.weakDividerColor))),
       child: InkWell(
         onTap: () async {
           showCupertinoModalPopup<String>(
@@ -68,7 +62,10 @@ class GroupProfileAddOpt extends TIMUIKitStatelessWidget {
                       "cancel",
                     );
                   },
-                  child: Text(TIM_t("取消")),
+                  child: Text(
+                    TIM_t("取消"),
+                    style: TextStyle(fontSize: 14, color: Colors.black),
+                  ),
                   isDefaultAction: false,
                 ),
                 actions: actionList

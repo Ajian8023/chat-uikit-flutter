@@ -1,22 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/separate_models/tui_group_profile_model.dart';
-
-import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
-
-import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
+import 'package:tencent_im_base/tencent_im_base.dart';
 
 class GroupProfileDetailCard extends TIMUIKitStatelessWidget {
   final V2TimGroupInfo groupInfo;
   final void Function(String groupName)? updateGroupName;
   final TextEditingController controller = TextEditingController();
 
-  GroupProfileDetailCard(
-      {Key? key, required this.groupInfo, this.updateGroupName})
-      : super(key: key);
+  GroupProfileDetailCard({Key? key, required this.groupInfo, this.updateGroupName}) : super(key: key);
 
   @override
   Widget tuiBuild(BuildContext context, TUIKitBuildValue value) {
@@ -37,7 +33,12 @@ class GroupProfileDetailCard extends TIMUIKitStatelessWidget {
                       context,
                     );
                   },
-                  child: Text(TIM_t("取消")),
+                  child: Text(
+                    TIM_t(
+                      "取消",
+                    ),
+                    style: TextStyle(fontSize: 14, color: Colors.black),
+                  ),
                   isDefaultAction: false,
                 ),
                 actions: [
@@ -55,30 +56,28 @@ class GroupProfileDetailCard extends TIMUIKitStatelessWidget {
                               decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10.0),
-                                      topRight: Radius.circular(10.0))),
+                                      topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0))),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20),
-                                    child: Text(TIM_t("修改群名称")),
+                                    padding: const EdgeInsets.symmetric(vertical: 20),
+                                    child: Text(
+                                      TIM_t("修改群名称"),
+                                      style: TextStyle(fontSize: 14),
+                                    ),
                                   ),
-                                  Divider(
-                                      height: 2, color: theme.weakDividerColor),
+                                  Divider(height: 2, color: theme.weakDividerColor),
                                   Padding(
                                     padding: const EdgeInsets.all(20),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         TextField(
                                           controller: controller,
                                           decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              fillColor:
-                                                  theme.weakBackgroundColor,
+                                              fillColor: theme.weakBackgroundColor,
                                               filled: true,
                                               isDense: true,
                                               hintText: ''),
@@ -88,9 +87,7 @@ class GroupProfileDetailCard extends TIMUIKitStatelessWidget {
                                         ),
                                         Text(
                                           TIM_t("修改群名称"),
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              color: theme.weakTextColor),
+                                          style: TextStyle(fontSize: 13, color: theme.weakTextColor),
                                           textAlign: TextAlign.left,
                                         ),
                                         const SizedBox(
@@ -100,8 +97,7 @@ class GroupProfileDetailCard extends TIMUIKitStatelessWidget {
                                             width: double.infinity,
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                final text =
-                                                    controller.text.trim();
+                                                final text = controller.text.trim();
                                                 if (updateGroupName != null) {
                                                   updateGroupName!(text);
                                                 } else {
@@ -116,10 +112,7 @@ class GroupProfileDetailCard extends TIMUIKitStatelessWidget {
                                           height: 20,
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.only(
-                                              bottom: MediaQuery.of(context)
-                                                  .viewInsets
-                                                  .bottom),
+                                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                                         )
                                       ],
                                     ),
@@ -164,15 +157,12 @@ class GroupProfileDetailCard extends TIMUIKitStatelessWidget {
                   children: [
                     Text(
                       showName,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w600),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    Text("ID: $groupID",
-                        style: TextStyle(
-                            fontSize: 13, color: theme.weakTextColor))
+                    Text("ID: $groupID", style: TextStyle(fontSize: 13, color: theme.weakTextColor))
                   ],
                 ),
               ),

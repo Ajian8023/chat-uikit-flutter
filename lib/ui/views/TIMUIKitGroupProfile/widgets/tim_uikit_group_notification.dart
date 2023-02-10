@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
-import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_statelesswidget.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/separate_models/tui_group_profile_model.dart';
-
-
-
-import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
+import 'package:tencent_im_base/tencent_im_base.dart';
 
 class GroupProfileNotification extends TIMUIKitStatelessWidget {
   GroupProfileNotification({Key? key}) : super(key: key);
@@ -17,25 +14,20 @@ class GroupProfileNotification extends TIMUIKitStatelessWidget {
     final TUITheme theme = value.theme;
 
     final model = Provider.of<TUIGroupProfileModel>(context);
-    final String notification = (model.groupInfo?.notification != null &&
-            model.groupInfo!.notification!.isNotEmpty)
+    final String notification = (model.groupInfo?.notification != null && model.groupInfo!.notification!.isNotEmpty)
         ? model.groupInfo!.notification!
         : TIM_t("暂无群公告");
     return Container(
       padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border(
-              bottom: BorderSide(
-                  color:
-                      theme.weakDividerColor ?? CommonColor.weakDividerColor))),
+          border: Border(bottom: BorderSide(color: theme.weakDividerColor ?? CommonColor.weakDividerColor))),
       child: InkWell(
         onTap: (() {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => GroupProfileNotificationPage(
-                      model: model, notification: notification)));
+                  builder: (context) => GroupProfileNotificationPage(model: model, notification: notification)));
         }),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,8 +44,7 @@ class GroupProfileNotification extends TIMUIKitStatelessWidget {
                   Text(notification,
                       overflow: TextOverflow.ellipsis,
                       softWrap: true,
-                      style:
-                          TextStyle(color: theme.weakTextColor, fontSize: 12)),
+                      style: TextStyle(color: theme.weakTextColor, fontSize: 12)),
                 ],
               ),
             ),
@@ -69,16 +60,13 @@ class GroupProfileNotificationPage extends StatefulWidget {
   final String notification;
   final TUIGroupProfileModel model;
 
-  const GroupProfileNotificationPage(
-      {Key? key, required this.notification, required this.model})
-      : super(key: key);
+  const GroupProfileNotificationPage({Key? key, required this.notification, required this.model}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _GroupProfileNotificationPageState();
 }
 
-class _GroupProfileNotificationPageState
-    extends TIMUIKitState<GroupProfileNotificationPage> {
+class _GroupProfileNotificationPageState extends TIMUIKitState<GroupProfileNotificationPage> {
   final TextEditingController _controller = TextEditingController();
   bool isUpdated = false;
 
@@ -104,19 +92,22 @@ class _GroupProfileNotificationPageState
       appBar: AppBar(
         title: Text(
           TIM_t("群公告"),
-          style: const TextStyle(color: Colors.white, fontSize: 17),
+          style: const TextStyle(color: Colors.black, fontSize: 17),
         ),
-        shadowColor: theme.weakDividerColor,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              theme.lightPrimaryColor ?? CommonColor.lightPrimaryColor,
-              theme.primaryColor ?? CommonColor.primaryColor
-            ]),
+        elevation: 0,
+        centerTitle: true,
+        shadowColor: Colors.white,
+        backgroundColor: hexToColor("f2f3f5"),
+        leading: IconButton(
+          padding: const EdgeInsets.only(left: 16),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: hexToColor("2a2e35"),
+            size: 19,
           ),
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           TextButton(
@@ -132,7 +123,7 @@ class _GroupProfileNotificationPageState
             child: Text(
               isUpdated ? TIM_t("编辑") : TIM_t("完成"),
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 16,
               ),
             ),
@@ -148,6 +139,7 @@ class _GroupProfileNotificationPageState
             controller: _controller,
             keyboardType: TextInputType.multiline,
             autofocus: true,
+            cursorColor: Colors.grey,
             decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintStyle: TextStyle(
