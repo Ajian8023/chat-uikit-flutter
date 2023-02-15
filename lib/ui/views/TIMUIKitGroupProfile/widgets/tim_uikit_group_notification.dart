@@ -129,7 +129,7 @@ class _GroupProfileNotificationPageState extends TIMUIKitState<GroupProfileNotif
             ),
           )
         ],
-      ),
+      ), //1
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: TextField(
