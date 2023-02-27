@@ -139,6 +139,7 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
     }
   }
 
+//1
   @override
   void initState() {
     super.initState();
@@ -151,7 +152,6 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
     final heroTag =
         "${widget.message.msgID ?? widget.message.id ?? widget.message.timestamp ?? DateTime.now().millisecondsSinceEpoch}${widget.isFrom}";
 
-    //1
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
