@@ -6,17 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
-import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/separate_models/tui_chat_separate_view_model.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_chat_global_model.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/message/message_services.dart';
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
-
 import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
-
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/TIMUIKitMessageReaction/tim_uikit_message_reaction_wrapper.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/video_screen.dart';
+import 'package:tencent_im_base/tencent_im_base.dart';
 
 class TIMUIKitVideoElem extends StatefulWidget {
   final V2TimMessage message;
@@ -75,22 +73,18 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
       final current = (DateTime.now().millisecondsSinceEpoch / 1000).ceil();
       final timeStamp = widget.message.timestamp ?? current;
       if (current - timeStamp < 300) {
-        if (stateElement.snapshotPath != null &&
-            stateElement.snapshotPath != '') {
+        if (stateElement.snapshotPath != null && stateElement.snapshotPath != '') {
           File imgF = File(stateElement.snapshotPath!);
           bool isExist = imgF.existsSync();
           if (isExist) {
-            return Image.file(File(stateElement.snapshotPath!),
-                fit: BoxFit.fitWidth);
+            return Image.file(File(stateElement.snapshotPath!), fit: BoxFit.fitWidth);
           }
         }
       }
     }
 
-    if ((stateElement.snapshotUrl == null ||
-            stateElement.snapshotUrl == '') &&
-        (stateElement.snapshotPath == null ||
-            stateElement.snapshotPath == '')) {
+    if ((stateElement.snapshotUrl == null || stateElement.snapshotUrl == '') &&
+        (stateElement.snapshotPath == null || stateElement.snapshotPath == '')) {
       return Container(
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(5)),
@@ -115,25 +109,18 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
     return (!kIsWeb && stateElement.snapshotUrl == null ||
             widget.message.status == MessageStatus.V2TIM_MSG_STATUS_SENDING)
         ? (stateElement.snapshotPath!.isNotEmpty
-            ? Image.file(File(stateElement.snapshotPath!),
-                fit: BoxFit.fitWidth)
-            : Image.file(File(stateElement.localSnapshotUrl!),
-                fit: BoxFit.fitWidth))
-        : (kIsWeb ||
-                stateElement.localSnapshotUrl == null ||
-                stateElement.localSnapshotUrl == "")
+            ? Image.file(File(stateElement.snapshotPath!), fit: BoxFit.fitWidth)
+            : Image.file(File(stateElement.localSnapshotUrl!), fit: BoxFit.fitWidth))
+        : (kIsWeb || stateElement.localSnapshotUrl == null || stateElement.localSnapshotUrl == "")
             ? Image.network(stateElement.snapshotUrl!, fit: BoxFit.fitWidth)
-            : Image.file(File(stateElement.localSnapshotUrl!),
-                fit: BoxFit.fitWidth);
+            : Image.file(File(stateElement.localSnapshotUrl!), fit: BoxFit.fitWidth);
   }
 
   downloadMessageDetailAndSave() async {
     if (widget.message.msgID != null && widget.message.msgID != '') {
-      if (widget.message.videoElem!.videoUrl == null ||
-          widget.message.videoElem!.videoUrl == '') {
-        final response = await _messageService.getMessageOnlineUrl(
-            msgID: widget.message.msgID!);
-        if(response.data != null){
+      if (widget.message.videoElem!.videoUrl == null || widget.message.videoElem!.videoUrl == '') {
+        final response = await _messageService.getMessageOnlineUrl(msgID: widget.message.msgID!);
+        if (response.data != null) {
           widget.message.videoElem = response.data!.videoElem;
           Future.delayed(const Duration(microseconds: 10), () {
             setState(() => stateElement = response.data!.videoElem!);
@@ -141,21 +128,12 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
         }
       }
       if (!PlatformUtils().isWeb) {
-        if (widget.message.videoElem!.localVideoUrl == null ||
-            widget.message.videoElem!.localVideoUrl == '') {
+        if (widget.message.videoElem!.localVideoUrl == null || widget.message.videoElem!.localVideoUrl == '') {
           _messageService.downloadMessage(
-              msgID: widget.message.msgID!,
-              messageType: 5,
-              imageType: 0,
-              isSnapshot: false);
+              msgID: widget.message.msgID!, messageType: 5, imageType: 0, isSnapshot: false);
         }
-        if (widget.message.videoElem!.localSnapshotUrl == null ||
-            widget.message.videoElem!.localSnapshotUrl == '') {
-          _messageService.downloadMessage(
-              msgID: widget.message.msgID!,
-              messageType: 5,
-              imageType: 0,
-              isSnapshot: true);
+        if (widget.message.videoElem!.localSnapshotUrl == null || widget.message.videoElem!.localSnapshotUrl == '') {
+          _messageService.downloadMessage(msgID: widget.message.msgID!, messageType: 5, imageType: 0, isSnapshot: true);
         }
       }
     }
@@ -173,6 +151,7 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
     final heroTag =
         "${widget.message.msgID ?? widget.message.id ?? widget.message.timestamp ?? DateTime.now().millisecondsSinceEpoch}${widget.isFrom}";
 
+    //1
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -197,22 +176,18 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
               isFromSelf: widget.message.isSelf ?? true,
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                child: LayoutBuilder(builder:
-                    (BuildContext context, BoxConstraints constraints) {
+                child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
                   double positionRadio = 0.56;
                   if (stateElement.snapshotWidth != null &&
                       stateElement.snapshotHeight != null &&
                       stateElement.snapshotWidth != 0 &&
                       stateElement.snapshotHeight != 0) {
-                    positionRadio = (stateElement.snapshotWidth! /
-                        stateElement.snapshotHeight!);
+                    positionRadio = (stateElement.snapshotWidth! / stateElement.snapshotHeight!);
                   }
 
                   return ConstrainedBox(
                       constraints: BoxConstraints(
-                          maxWidth: PlatformUtils().isWeb
-                              ? 300
-                              : constraints.maxWidth * 0.5,
+                          maxWidth: PlatformUtils().isWeb ? 300 : constraints.maxWidth * 0.5,
                           maxHeight: min(constraints.maxHeight * 0.8, 300),
                           minHeight: 20,
                           minWidth: 20),
@@ -221,46 +196,27 @@ class _TIMUIKitVideoElemState extends TIMUIKitState<TIMUIKitVideoElem> {
                         child: Stack(
                           children: <Widget>[
                             Row(
-                              children: [
-                                Expanded(
-                                    child: generateSnapshot(
-                                        theme,
-                                        stateElement.snapshotHeight ??
-                                            100))
-                              ],
+                              children: [Expanded(child: generateSnapshot(theme, stateElement.snapshotHeight ?? 100))],
                             ),
-                            if (widget.message.status !=
-                                MessageStatus
-                                    .V2TIM_MSG_STATUS_SENDING &&
-                                (stateElement.snapshotUrl != null ||
-                                    stateElement.snapshotPath !=
-                                        null) &&
-                                stateElement.videoPath != null ||
+                            if (widget.message.status != MessageStatus.V2TIM_MSG_STATUS_SENDING &&
+                                    (stateElement.snapshotUrl != null || stateElement.snapshotPath != null) &&
+                                    stateElement.videoPath != null ||
                                 stateElement.videoUrl != null)
                               Positioned.fill(
                                 // alignment: Alignment.center,
                                 child: Center(
                                     child: Image.asset('images/play.png',
-                                        package: 'tencent_cloud_chat_uikit',
-                                        height: 64)),
+                                        package: 'tencent_cloud_chat_uikit', height: 64)),
                               ),
                             Positioned(
                                 right: 10,
                                 bottom: 10,
                                 child: Text(
-                                    MessageUtils.formatVideoTime(widget
-                                        .message
-                                        .videoElem
-                                        ?.duration ??
-                                        0)
-                                        .toString(),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12))),
+                                    MessageUtils.formatVideoTime(widget.message.videoElem?.duration ?? 0).toString(),
+                                    style: const TextStyle(color: Colors.white, fontSize: 12))),
                           ],
                         ),
-                      )
-                  );
+                      ));
                 }),
               ))),
     );
