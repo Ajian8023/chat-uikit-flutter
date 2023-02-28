@@ -10,16 +10,12 @@ class FriendshipServicesImpl with FriendshipServices {
   Future<List<V2TimFriendInfoResult>?> getFriendsInfo({
     required List<String> userIDList,
   }) async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .getFriendsInfo(userIDList: userIDList);
+    final res = await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().getFriendsInfo(userIDList: userIDList);
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -28,15 +24,12 @@ class FriendshipServicesImpl with FriendshipServices {
   Future<List<V2TimUserFullInfo>?> getUsersInfo({
     required List<String> userIDList,
   }) async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getUsersInfo(userIDList: userIDList);
+    final res = await TencentImSDKPlugin.v2TIMManager.getUsersInfo(userIDList: userIDList);
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -45,16 +38,12 @@ class FriendshipServicesImpl with FriendshipServices {
   Future<List<V2TimFriendOperationResult>?> addToBlackList({
     required List<String> userIDList,
   }) async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .addToBlackList(userIDList: userIDList);
+    final res = await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().addToBlackList(userIDList: userIDList);
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -68,15 +57,14 @@ class FriendshipServicesImpl with FriendshipServices {
     String? addSource,
     String? addWording,
   }) async {
-    final result =
-        await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().addFriend(
-              userID: userID,
-              addType: addType,
-              remark: remark,
-              addWording: addWording,
-              friendGroup: friendGroup,
-              addSource: addSource,
-            );
+    final result = await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().addFriend(
+          userID: userID,
+          addType: addType,
+          remark: remark,
+          addWording: addWording,
+          friendGroup: friendGroup,
+          addSource: addSource,
+        );
     if (result.code != 0 ||
         (result.code == 0 &&
             result.data?.resultCode != 0 &&
@@ -95,16 +83,13 @@ class FriendshipServicesImpl with FriendshipServices {
   Future<List<V2TimFriendOperationResult>?> deleteFromBlackList({
     required List<String> userIDList,
   }) async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .deleteFromBlackList(userIDList: userIDList);
+    final res =
+        await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().deleteFromBlackList(userIDList: userIDList);
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -120,42 +105,32 @@ class FriendshipServicesImpl with FriendshipServices {
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
 
   @override
   Future<List<V2TimFriendInfo>?> getFriendList() async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .getFriendList();
+    final res = await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().getFriendList();
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
 
   @override
   Future<List<V2TimFriendInfo>?> getBlackList() async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .getBlackList();
+    final res = await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().getBlackList();
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -171,10 +146,8 @@ class FriendshipServicesImpl with FriendshipServices {
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -183,32 +156,24 @@ class FriendshipServicesImpl with FriendshipServices {
   Future<void> addFriendListener({
     required V2TimFriendshipListener listener,
   }) {
-    return TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .addFriendListener(listener: listener);
+    return TencentImSDKPlugin.v2TIMManager.getFriendshipManager().addFriendListener(listener: listener);
   }
 
   @override
   Future<void> removeFriendListener({
     V2TimFriendshipListener? listener,
   }) {
-    return TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .removeFriendListener(listener: listener);
+    return TencentImSDKPlugin.v2TIMManager.getFriendshipManager().removeFriendListener(listener: listener);
   }
 
   @override
   Future<V2TimFriendApplicationResult?> getFriendApplicationList() async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .getFriendApplicationList();
+    final res = await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().getFriendApplicationList();
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -219,9 +184,7 @@ class FriendshipServicesImpl with FriendshipServices {
     required FriendApplicationTypeEnum type,
     required String userID,
   }) async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .acceptFriendApplication(
+    final res = await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().acceptFriendApplication(
           responseType: responseType,
           type: type,
           userID: userID,
@@ -229,10 +192,8 @@ class FriendshipServicesImpl with FriendshipServices {
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -246,10 +207,8 @@ class FriendshipServicesImpl with FriendshipServices {
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -262,15 +221,10 @@ class FriendshipServicesImpl with FriendshipServices {
   }) async {
     final res = await TencentImSDKPlugin.v2TIMManager
         .getFriendshipManager()
-        .setFriendInfo(
-            friendRemark: friendRemark,
-            friendCustomInfo: friendCustomInfo,
-            userID: userID);
+        .setFriendInfo(friendRemark: friendRemark, friendCustomInfo: friendCustomInfo, userID: userID);
     if (res.code != 0) {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
     }
     return res;
   }
@@ -279,16 +233,12 @@ class FriendshipServicesImpl with FriendshipServices {
   Future<List<V2TimFriendInfoResult>?> searchFriends({
     required V2TimFriendSearchParam searchParam,
   }) async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .searchFriends(searchParam: searchParam);
+    final res = await TencentImSDKPlugin.v2TIMManager.getFriendshipManager().searchFriends(searchParam: searchParam);
     if (res.code == 0) {
       return res.data;
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return null;
     }
   }
@@ -297,15 +247,12 @@ class FriendshipServicesImpl with FriendshipServices {
   Future<List<V2TimUserStatus>> getUserStatus({
     required List<String> userIDList,
   }) async {
-    final res = await TencentImSDKPlugin.v2TIMManager
-        .getUserStatus(userIDList: userIDList);
+    final res = await TencentImSDKPlugin.v2TIMManager.getUserStatus(userIDList: userIDList);
     if (res.code == 0) {
       return res.data ?? [];
     } else {
-      _coreService.callOnCallback(TIMCallback(
-          type: TIMCallbackType.API_ERROR,
-          errorMsg: res.desc,
-          errorCode: res.code));
+      _coreService
+          .callOnCallback(TIMCallback(type: TIMCallbackType.API_ERROR, errorMsg: res.desc, errorCode: res.code));
       return [];
     }
   }

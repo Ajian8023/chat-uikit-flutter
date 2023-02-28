@@ -54,9 +54,7 @@ abstract class FriendshipServices {
   Future<V2TimFriendApplicationResult?> getFriendApplicationList();
 
   Future<V2TimFriendOperationResult?> acceptFriendApplication(
-      {required FriendResponseTypeEnum responseType,
-      required FriendApplicationTypeEnum type,
-      required String userID});
+      {required FriendResponseTypeEnum responseType, required FriendApplicationTypeEnum type, required String userID});
 
   Future<V2TimFriendOperationResult?> refuseFriendApplication(
       {required FriendApplicationTypeEnum type, required String userID});
